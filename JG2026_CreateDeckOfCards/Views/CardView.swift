@@ -10,7 +10,18 @@ import SwiftUI
 
 struct CardView: View {
     
-    @State var card: Card = Card(suit: .hearts, rank: .queen)
+    let card: Card
+    
+    private let width: CGFloat
+    private let height: CGFloat
+    private let fontSize: CGFloat
+    
+    init(card: Card = Card(suit: .spades, rank: .two), width: CGFloat = 50, height: CGFloat = 75, fontSize: CGFloat = 20) {
+        self.card = card
+        self.width = width
+        self.height = height
+        self.fontSize = fontSize
+    }
     
     var body: some View {
         VStack {
@@ -22,15 +33,15 @@ struct CardView: View {
                             .stroke(.gray, lineWidth: 2)
                     }
                 Text("\(card.suit.rawValue)\(card.rank.type)")
-                    .font(.system(size: 20))
+                    .font(.system(size: fontSize))
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
             }
-            .frame(width: 50, height: 75)
+            .frame(width: width, height: height)
         }
     }
 }
 
 #Preview {
-    CardView()
+    CardView(card: Card(suit: .spades, rank: .ace))
 }

@@ -12,7 +12,7 @@ import SwiftUI
 struct JG2026_CreateDeckOfCardsApp: App {
     var body: some Scene {
         WindowGroup {
-            MainView()
+            GameView()
         }
     }
 }

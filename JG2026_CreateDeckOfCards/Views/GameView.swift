@@ -1,5 +1,5 @@
 //
-//  MainView.swift
+//  GameView.swift
 //  JG2026_CreateDeckOfCards
 //
 //  Created by app-kaihatsusha on 30/05/2026.
@@ -8,9 +8,10 @@
 
 import SwiftUI
 
-struct MainView: View {
+struct GameView: View {
     
     @State private var cards: [Card] = []
+    @State private var selectedCard: Card = Card(suit: .clubs, rank: .ten)
     
     var body: some View {
         VStack {
@@ -22,12 +23,21 @@ struct MainView: View {
                 }
                 .scrollIndicators(.hidden)
             }
-            .onAppear {
-                guard cards.isEmpty else { return }
-                populateDeck()
-            }
+            
+            CardView(card: selectedCard, width: 100, height: 150, fontSize: 50)
+            
         }
         .padding()
+        .onAppear {
+            guard cards.isEmpty else { return }
+            populateDeck()
+            cards.shuffle()
+            selectedCard = cards.removeFirst()
+            print("Selected Card: \(selectedCard.rank) of \(selectedCard.suit)")
+            printStats()
+            
+        }
+        
     }
     
     private func populateDeck() {
@@ -37,11 +47,16 @@ struct MainView: View {
             }
         }
         
-        //        print("Deck size: \(cards.count)")
-        //        cards.forEach { $0.printCard() }
+        //printStats()
+
+    }
+    
+    private func printStats() {
+        print("Deck size: \(cards.count)")
+        //cards.forEach { $0.printCard() }
     }
 }
 
 #Preview {
-    MainView()
+    GameView()
 }
